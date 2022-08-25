@@ -1,0 +1,163 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>HW6_TylerCurtis</title>
+</head>
+
+<body>
+
+    <label>What number do you want for Yahtzee?</label>
+    <input type="text" name="userNumber" id="input" value="">
+    <button type="button" id="rollDice" onclick="rollTheDie()">Click me!</button>
+    <br><br>
+    <img id="die1" src=""></img>
+    <img id="die2" src=""></img>
+    <img id="die3" src=""></img>
+    <img id="die4" src=""></img>
+    <img id="die5" src=""></img>
+    <br>
+    <p id="d1Rolls">Dice 1 Rolls =</p>
+    <p id="d2Rolls">Dice 2 Rolls =</p>
+    <p id="d3Rolls">Dice 3 Rolls =</p>
+    <p id="d4Rolls">Dice 4 Rolls =</p>
+    <p id="d5Rolls">Dice 5 Rolls =</p>
+    <p id="tCount">Total # of Rolls:</p>
+
+    <script>
+
+        /*
+        I want you to create a separate function for (1) the rolling 
+        of the die, (2) counting the number of rolls, (3) and displaying 
+        the die image and (4*) die counter and (5*) keeping the total count 
+        variable.*/
+
+
+        function rollTheDie() {
+
+            var userYahtzee;
+            var die1; //each one of these represents the value of the roll
+            var die2;
+            var die3;
+            var die4;
+            var die5;
+            var d1Count = 0; //each is the number of times it took to match userYahtzee
+            var d2Count = 0;
+            var d3Count = 0;
+            var d4Count = 0;
+            var d5Count = 0;
+
+            //getting value of userYahtzee from the DOM
+            userYahtzee = parseInt(document.getElementById("input").value);
+            //alert(userYahtzee);
+
+            if (userYahtzee < 1 || userYahtzee > 6 || isNaN(userYahtzee)) {
+                alert("Invalid input. Must be number between 1 and 6.");
+                document.getElementById("input").focus();
+                return;
+            }
+            //alert(userYahtzee);
+
+            //DON'T FORGET THE FOCUS THING!!!
+
+            //roll die 1, count how many rolls it takes, and display that number
+            do {
+                die1 = Math.floor((Math.random() * 6) + 1);
+                d1Count = countRoll(d1Count);
+            } while (die1 != userYahtzee);
+            debugger;
+            displayImage(die1, "die1");
+            displayCount("d1Rolls", 1, d1Count);
+
+            //alert(d1Count);
+            //roll die 2, count how many rolls it takes, and display that number
+            do {
+                die2 = Math.floor((Math.random() * 6) + 1);
+                d2Count = countRoll(d2Count);
+            } while (die2 != userYahtzee);
+            displayImage(die2, "die2");
+            displayCount("d2Rolls", 2, d2Count);
+
+            //roll die 3, count how many rolls it takes, and display that number
+            do {
+                die3 = Math.floor((Math.random() * 6) + 1);
+                d3Count = countRoll(d3Count);
+            } while (die3 != userYahtzee);
+            displayImage(die3, "die3");
+            displayCount("d3Rolls", 3, d3Count);
+
+            //roll die 4, count how many rolls it takes, and display that number
+            do {
+                die4 = Math.floor((Math.random() * 6) + 1);
+                d4Count = countRoll(d4Count);
+            } while (die4 != userYahtzee);
+            displayImage(die4, "die4");
+            displayCount("d4Rolls", 4, d4Count);
+
+            //roll die 5, count how many rolls it takes, and display that number
+            do {
+                die5 = Math.floor((Math.random() * 6) + 1);
+                d5Count = countRoll(d5Count);
+            } while (die5 != userYahtzee);
+            displayImage(die5, "die5");
+            displayCount("d5Rolls", 5, d5Count);
+
+            //display total count in DOM
+            totalCount(d1Count, d2Count, d3Count, d4Count, d5Count);
+
+            //these are test alerts
+            //alert(die1 + " " + die2 + " " + die3 + " " + die4 + " " + die5 + " " + userYahtzee);
+            //alert(d1Count + " " + d2Count + " " + d3Count + " " + d4Count + " " + d5Count + " " + userYahtzee);
+        }
+
+        //this on works!!
+        function countRoll(dCount) {
+            //increments the passed in var by 1
+            dCount++;
+            return dCount;
+        }
+
+        function displayImage(diceNum, imgID) {
+            var img;
+            if (diceNum === 1) {
+                img = document.getElementById(imgID).src = "images/dice1Use.jpg";
+            }
+            else if (diceNum === 2) {
+                img = document.getElementById(imgID).src = "images/dice2Use.jpg";
+            }
+            else if (diceNum === 3) {
+                img = document.getElementById(imgID).src = "images/dice3Use.jpg";
+            }
+            else if (diceNum === 4) {
+                img = document.getElementById(imgID).src = "images/dice4Use.jpg";
+            }
+            else if (diceNum === 5) {
+                img = document.getElementById(imgID).src = "images/dice5Use.jpg";
+            }
+            else {
+                img = document.getElementById(imgID).src = "images/dice6Use.jpg";
+            }
+            return img;
+        }
+
+        function displayCount(htmlID, dieNum, dieCount) {
+            var output;
+            output = document.getElementById(htmlID).innerHTML =
+                "Dice " + dieNum + " Rolls = " + dieCount;
+            return output;
+        }
+
+        function totalCount(d1, d2, d3, d4, d5) {
+            //keeps total count variable
+            var totalCount;
+            totalCount = "Total # of Rolls: " + (d1 + d2 + d3 + d4 + d5);
+            document.getElementById("tCount").innerHTML = totalCount;
+            return totalCount;
+        }
+
+    </script>
+</body>
+
+</html>
